@@ -2,11 +2,10 @@ package com.devhub.backend.service;
 
 import com.devhub.backend.entity.Project;
 import com.devhub.backend.entity.Task;
+import com.devhub.backend.exception.ResourceNotFoundException;
 import com.devhub.backend.repository.ProjectRepository;
 import com.devhub.backend.repository.TaskRepository;
 import org.springframework.stereotype.Service;
-import com.devhub.backend.exception.ResourceNotFoundException;
-import com.devhub.backend.exception.BusinessException;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class TaskService {
     public TaskService(
             TaskRepository taskRepository,
             ProjectRepository projectRepository) {
+
         this.taskRepository = taskRepository;
         this.projectRepository = projectRepository;
     }
@@ -29,12 +29,14 @@ public class TaskService {
 
     public Task findById(Long id) {
         return taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Tarefa não encontrada"));
     }
 
     public Task create(Task task, Long projectId) {
         Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Projeto não encontrado"));
 
         task.setProject(project);
 
