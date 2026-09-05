@@ -3,6 +3,8 @@ package com.devhub.backend.service;
 import com.devhub.backend.entity.User;
 import com.devhub.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.devhub.backend.exception.ResourceNotFoundException;
+import com.devhub.backend.exception.BusinessException;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class UserService {
 
     public User create(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("E-mail já está registado");
+            throw new BusinessException("E-mail já está registado");
         }
 
         return userRepository.save(user);
