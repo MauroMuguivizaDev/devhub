@@ -29,12 +29,12 @@ public class ProjectService {
 
     public Project findById(Long id) {
         return projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado"));
     }
 
     public Project create(Project project, Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
 
         project.setUser(user);
 

@@ -23,7 +23,7 @@ public class UserService {
 
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utilizador não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilizador não encontrado"));
     }
 
     public User create(User user) {
